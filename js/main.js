@@ -2203,6 +2203,20 @@ keyboard.addEventListener('click', (e) => {
   }
   playSoundForButton(button);
 });
+// ===== 退格删除（提案 #210）=====
+(function () {
+  const bsButton = document.createElement('button');
+  bsButton.type = 'button';
+  bsButton.textContent = '⌫';
+  bsButton.className = keyboard.lastElementChild.className; // 与相邻按键样式一致
+  bsButton.addEventListener('click', () => {
+    const display = document.querySelector('#display');
+    if (display.value.length > 0) {
+      display.value = display.value.slice(0, -1);
+    }
+  });
+  keyboard.insertBefore(bsButton, keyboard.lastElementChild);
+})();
 
 // 物理键盘：与上方已有的 keydown 监听并存；长按产生的重复事件只响一次
 document.addEventListener('keydown', (e) => {
